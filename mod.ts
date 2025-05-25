@@ -18,8 +18,8 @@ import type {
   EmbeddingModelV1,
   ImageModelV1,
   LanguageModelV1,
+  SpeechModelV1,
   TranscriptionModelV1,
-  SpeechModelV1
 } from '@ai-sdk/provider'
 import { modelManager } from './utils.ts'
 

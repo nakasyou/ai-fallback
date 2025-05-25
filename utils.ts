@@ -32,6 +32,7 @@ export const modelManager = <T extends Model>(models: T[]): ModelManager<T> => {
   }))
 
   return async (callback) => {
+    let lastErr: unknown
     try {
       for (const state of states) {
         try {
@@ -39,12 +40,13 @@ export const modelManager = <T extends Model>(models: T[]): ModelManager<T> => {
           // this model successed
           state.score *= 0.7
           return result
-        } catch {
+        } catch (err) {
           state.score *= 1.5
+          lastErr = err
           continue
         }
       }
-      throw new Error('All models failed.')
+      throw lastErr
     } finally {
       for (const state of states) {
         state.score *= 0.9
