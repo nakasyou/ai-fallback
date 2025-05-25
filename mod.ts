@@ -19,6 +19,7 @@ import type {
   ImageModelV1,
   LanguageModelV1,
   TranscriptionModelV1,
+  SpeechModelV1
 } from '@ai-sdk/provider'
 import { modelManager } from './utils.ts'
 
@@ -130,6 +131,25 @@ export const combineImages = (
       (max, model) => Math.max(max, model.maxImagesPerCall ?? 1),
       0,
     ),
+    doGenerate(options) {
+      return manager(async (model) => await model.doGenerate(options))
+    },
+  }
+}
+
+/**
+ * Combines speech models
+ * @param models Models
+ * @returns Combined models
+ */
+export const combineSpeech = (
+  models: SpeechModelV1[],
+): SpeechModelV1 => {
+  const manager = modelManager(models)
+  return {
+    modelId: 'combined',
+    provider: 'combined',
+    specificationVersion: 'v1',
     doGenerate(options) {
       return manager(async (model) => await model.doGenerate(options))
     },

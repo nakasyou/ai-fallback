@@ -2,6 +2,7 @@ import type {
   EmbeddingModelV1,
   ImageModelV1,
   LanguageModelV1,
+  SpeechModelV1,
   TranscriptionModelV1,
 } from '@ai-sdk/provider'
 
@@ -10,6 +11,7 @@ export type Model =
   | EmbeddingModelV1<unknown>
   | TranscriptionModelV1
   | ImageModelV1
+  | SpeechModelV1
 
 type ModelManager<T extends Model> = <R>(
   callback: (model: T) => Promise<R>,
